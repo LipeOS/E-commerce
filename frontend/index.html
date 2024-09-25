@@ -1,11 +1,90 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Website de Exemplo</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    
+    <!-- Header -->
+    <header>
+        <h1>Meu Site Moderno</h1>
+    </header>
+
+    <!-- Sub-header com opções -->
+    <nav>
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#produtos">Produtos</a></li>
+            <li><a href="#contato">Contato</a></li>
+        </ul>
+    </nav>
+
+    <!-- Carrossel -->
+    <section class="carrossel">
+        <div class="slide active">
+            <img src="https://via.placeholder.com/1920x600" alt="Imagem 1">
+        </div>
+        <div class="slide">
+            <img src="https://via.placeholder.com/1920x600" alt="Imagem 2">
+        </div>
+        <div class="slide">
+            <img src="https://via.placeholder.com/1920x600" alt="Imagem 3">
+        </div>
+        <button class="prev">⟨</button>
+        <button class="next">⟩</button>
+    </section>
+
+    <!-- Visualização de produtos com paginação -->
+    <section id="produtos" class="produtos">
+        <h2>Nossos Produtos</h2>
+        <div class="produto-lista">
+            <div class="produto">
+                <img src="https://via.placeholder.com/300x300" alt="Produto 1">
+                <h3>Produto 1</h3>
+                <p>Descrição breve do produto.</p>
+                <button>Comprar</button>
+            </div>
+            <div class="produto">
+                <img src="https://via.placeholder.com/300x300" alt="Produto 2">
+                <h3>Produto 2</h3>
+                <p>Descrição breve do produto.</p>
+                <button>Comprar</button>
+            </div>
+            <div class="produto">
+                <img src="https://via.placeholder.com/300x300" alt="Produto 3">
+                <h3>Produto 3</h3>
+                <p>Descrição breve do produto.</p>
+                <button>Comprar</button>
+            </div>
+            <div class="produto">
+                <img src="https://via.placeholder.com/300x300" alt="Produto 4">
+                <h3>Produto 4</h3>
+                <p>Descrição breve do produto.</p>
+                <button>Comprar</button>
+            </div>
+            <div class="produto">
+                <img src="https://via.placeholder.com/300x300" alt="Produto 5">
+                <h3>Produto 5</h3>
+                <p>Descrição breve do produto.</p>
+                <button>Comprar</button>
+            </div>
+        </div>
+
+        <!-- Paginação -->
+        <div class="paginacao">
+            <button class="prev-page">Anterior</button>
+            <span>Página 1 de 5</span>
+            <button class="next-page">Próxima</button>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Meu Site Moderno. Todos os direitos reservados.</p>
+    </footer>
+
+    <script src="script.js"></script>
 </body>
 </html>
