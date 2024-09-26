@@ -15,7 +15,7 @@ app.config['MYSQL_HOST'] = 'localhost'
 logging.basicConfig(level=logging.DEBUG)
 
 @app.route('/')
-def index():
+def login():
     return render_template('../../frontend/templates/login.html')
 
 if __name__ == '__main__':

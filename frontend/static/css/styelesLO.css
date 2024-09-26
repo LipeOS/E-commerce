@@ -7,7 +7,7 @@
   }
   
   body {
-    background: linear-gradient(to right, #3f955c, #08a250);
+    background: linear-gradient(to right, #91c7a3,#468843, #22881f);
     height: 100vh;
     display: flex;
     justify-content: center;
@@ -16,50 +16,53 @@
   
   .login-container {
     background-color: white;
-    padding: 40px;
-    border-radius: 12px;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.522);
+    padding: 50px; /* Mais padding */
+    border-radius: 15px; /* Canto mais arredondado */
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15); /* Sombra mais suave */
     text-align: center;
-    width: 350px;
+    width: 550px; /* Largura maior */
   }
   
   h2 {
-    margin-bottom: 20px;
+    margin-bottom: 25px; /* Maior espaçamento abaixo do título */
     color: #333;
+    font-size: 24px; /* Tamanho da fonte maior */
   }
   
   .input-group {
-    margin-bottom: 20px;
+    margin-bottom: 25px; /* Mais espaçamento entre os grupos */
   }
   
   .input-group label {
     display: block;
     text-align: left;
-    margin-bottom: 8px;
+    margin-bottom: 10px; /* Espaçamento maior entre o label e o input */
     color: #777;
+    font-size: 16px; /* Tamanho do label maior */
   }
   
-  .input-group input {
+  .input-group input, .input-group select {
     width: 100%;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
+    padding: 15px; /* Inputs mais "gordinhos" */
+    border: 2px solid #ddd; /* Borda mais espessa */
+    border-radius: 10px; /* Canto mais arredondado */
+    font-size: 16px; /* Texto dentro do input maior */
     outline: none;
     transition: border-color 0.3s;
   }
   
-  .input-group input:focus {
+  .input-group input:focus, .input-group select:focus {
     border-color: #6A82FB;
   }
   
   .login-btn {
-    width: 120px;
-    padding: 12px;
+    width: 140px; /* Botão mais largo */
+    padding: 15px; /* Botão mais "gordinho" */
     background-color: #357833;
     color: white;
     border: none;
-    border-radius: 8px;
-    font-size: 16px;
+    border-radius: 10px; /* Canto mais arredondado no botão */
+    font-size: 18px; /* Tamanho da fonte maior */
     cursor: pointer;
     transition: background-color 0.3s;
   }
@@ -69,8 +72,9 @@
   }
   
   .signup-link {
-    margin-top: 20px;
+    margin-top: 25px; /* Espaçamento maior no link de cadastro */
     color: #777;
+    font-size: 14px; /* Texto do link ligeiramente maior */
   }
   
   .signup-link a {
@@ -81,4 +85,18 @@
   .signup-link a:hover {
     text-decoration: underline;
   }
-  
+/* Campos de senha */
+.input-group input[type="password"] {
+  width: 100%;
+  padding: 15px;
+  border: 2px solid #ddd;
+  border-radius: 10px;
+  font-size: 16px;
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+/* Foco nos campos de senha */
+.input-group input[type="password"]:focus {
+  border-color: #6A82FB;
+}
