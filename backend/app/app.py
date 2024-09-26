@@ -9,5 +9,9 @@ app.config['MYSQL_PASSWORD'] = '1234'
 app.config['MYSQL_DB'] = 'banco'
 app.config['MYSQL_HOST'] = 'localhost'  
 
+logging.basicConfig(level=logging.DEBUG)
 
+@app.route('/')
+def index():
+    return render_template('../frontend/templates/index.html')
 
