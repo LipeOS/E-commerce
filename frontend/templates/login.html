@@ -8,9 +8,23 @@
     <link rel="stylesheet" href="../static/css/styelesLO.css">
     <title>Formulário</title>
 </head>
-
 <body>
-    
+    <div class="login-container">
+        <img src="/frontend/img/logo.png" alt="icone" width="100px" height="100px">
+        <h2>Login</h2>
+        <form action="/login" method="post">
+          <div class="input-group">
+            <label for="username">Usuário</label>
+            <input type="text" id="username" name="username" required>
+          </div>
+          <div class="input-group">
+            <label for="password">Senha</label>
+            <input type="password" id="password" name="password" required>
+          </div>
+          <button type="submit" class="login-btn">Entrar</button>
+          <p class="signup-link">Não tem conta? <a href="#">Cadastre-se</a></p>
+        </form>
+      </div>
 </body>
 <script src="../static/js/scriptLO.js"></script>
 </html>
