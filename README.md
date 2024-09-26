@@ -76,4 +76,20 @@ O objetivo deste projeto é criar um Sistema Empresarial de E-commerce completo 
 - Explicação dos setores com seus respectivos integrantes
 - Prévia de cada setor (o que esperam do projeto de acordo com sua função)
 - Atualização de Desenvolvimento (o que foi feito no projeto de acordo com a data)
-simmmmm
+
+# Atualização de Desenvolvimento - 26/09/2024
+
+## Setor 1 – Design
+- Planejamento do cadastro do projeto utilizando o Figma.
+
+## Setor 2 – Front-end
+- Início do desenvolvimento do código conforme o planejamento.
+- Pesquisa de fontes.
+
+## Setor 3 – Back-end
+- Revisão do planejamento do projeto.
+- Início da configuração do banco de dados.
+- Criação de fluxograma.
+
+## Setor 4 – Testers / Documentação
+- Atualização de Desenvolvimento - 26/09/2024.
