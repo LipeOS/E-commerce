@@ -27,11 +27,11 @@ body {
 
 
 .login-container > img {
-  margin-top: -50px;
+  margin-top: -20px;
 }
 
 h2 {
-  margin-bottom: 10px; /* Reduzindo espaço abaixo do título */
+  margin-bottom: 30px; /* Reduzindo espaço abaixo do título */
   color: #333;
   font-size: 22px; /* Reduzindo o tamanho da fonte */
 }
@@ -43,9 +43,10 @@ h2 {
 .input-group label {
   display: block;
   text-align: left;
-  margin-bottom: 5px; /* Espaçamento menor entre o label e o input */
+  margin-bottom: 10px; /* Espaçamento menor entre o label e o input */
   color: #777;
   font-size: 14px; /* Tamanho do label reduzido */
+  margin-top: 10px;
 }
 
 .input-group input, .input-group select {
@@ -72,7 +73,7 @@ h2 {
   font-size: 16px; /* Mantendo a fonte do botão */
   cursor: pointer;
   transition: background-color 0.3s;
-  margin-top: 10px;
+  margin-top: 30px;
 }
 
 .login-btn:hover {
