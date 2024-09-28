@@ -93,3 +93,11 @@ O objetivo deste projeto é criar um Sistema Empresarial de E-commerce completo 
 
 ## Setor 4 – Testers / Documentação
 - Atualização de Desenvolvimento - 26/09/2024.
+
+
+# Atualização de Desenvolvimento - 28/09/2024
+
+## Setor 2 – Front-end
+- Codigos formatados
+- Imagens acrescentadas
+- Funçoes estaticas adicionadas
