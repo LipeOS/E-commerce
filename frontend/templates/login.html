@@ -4,26 +4,26 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../static/css/styelesLO.css">
-    <title>Formulário</title>
+    <link rel="stylesheet" href="../static/css/styeles.css">
+    <title>Login</title>
 </head>
 <body>
-    <div class="login-container">
-        <img src="/frontend/img/logo.png" alt="icone" width="100px" height="100px">
-        <h2>Login</h2>
-        <form class="loogin" action="/login" method="post">
-          <div class="input-group2">
+    <div id="login-container" class="form-container">
+        <img src="/frontend/img/logo.png" alt="icone" class="form-logo">
+        <h2 class="form-title">Login</h2>
+        <form id="login-form" action="/login" method="post">
+          <div class="input-group">
             <label for="username">Usuário</label>
             <input type="text" id="username" name="username" required>
           </div>
-          <div class="input-group2">
+          <div class="input-group">
             <label for="password">Senha</label>
             <input type="password" id="password" name="password" required>
           </div>
-          <button type="submit" class="login-btn2">Entrar</button>
-          <p class="signup-link">Não tem conta? <a href="cadastro.html">Cadastre-se</a></p>
+          <button type="submit" class="submit-btn">Entrar</button>
+          <p class="form-link">Não tem conta? <a href="cadastro.html">Cadastre-se</a></p>
         </form>
       </div>
 </body>
-<script src="../static/js/scriptLO.js"></script>
+<script src="../static/js/script.js"></script>
 </html>

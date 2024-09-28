@@ -1,0 +1,109 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500&family=Open+Sans:wght@300;400;500;600&display=swap');
+
+/* Variáveis globais para cores */
+:root {
+  --primary-color: #357833;
+  --secondary-color: #0a380b;
+  --background-color: #91c7a3;
+  --text-color: #333;
+  --light-text-color: #777;
+  --input-border-color: #ddd;
+  --input-focus-color: #6A82FB;
+  --link-color: #106c2c;
+}
+
+/* Reset padrão */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
+}
+
+body {
+  background: linear-gradient(to right, var(--background-color), #468843, #22881f);
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Estilos compartilhados para ambos os formulários */
+.form-container {
+  background-color: white;
+  padding: 3rem;
+  border-radius: 0.9375rem;
+  box-shadow: 0 0.75rem 1.5rem rgba(0, 0, 0, 0.15);
+  text-align: center;
+  width: 28.125rem; /* 450px */
+}
+
+.form-logo {
+  margin-top: -1.25rem; /* -20px */
+  width: 6.25rem; /* 100px */
+  height: 6.25rem; /* 100px */
+}
+
+.form-title {
+  margin-bottom: 1.875rem; /* 30px */
+  color: var(--text-color);
+  font-size: 1.375rem; /* 22px */
+}
+
+.input-group {
+  margin-bottom: 0.625rem; /* 10px */
+  text-align: left;
+}
+
+.input-group label {
+  display: block;
+  margin-bottom: 0.625rem; /* 10px */
+  color: var(--light-text-color);
+  font-size: 0.875rem; /* 14px */
+}
+
+.input-group input, .input-group select {
+  width: 100%;
+  height: 2.1875rem; /* 35px */
+  border: 0.125rem solid var(--input-border-color); /* 2px */
+  border-radius: 0.625rem; /* 10px */
+  font-size: 0.875rem; /* 14px */
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+.input-group input:focus, .input-group select:focus {
+  border-color: var(--input-focus-color);
+}
+
+.submit-btn {
+  width: 8.75rem; /* 140px */
+  height: 2.5rem; /* 40px */
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 0.625rem; /* 10px */
+  font-size: 1rem; /* 16px */
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-top: 1.875rem; /* 30px */
+}
+
+.submit-btn:hover {
+  background-color: var(--secondary-color);
+}
+
+.form-link {
+  margin-top: 0.625rem; /* 10px */
+  color: var(--light-text-color);
+  font-size: 0.875rem; /* 14px */
+}
+
+.form-link a {
+  color: var(--link-color);
+  text-decoration: none;
+}
+
+.form-link a:hover {
+  text-decoration: underline;
+}
