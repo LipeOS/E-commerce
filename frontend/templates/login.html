@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../static/css/styeles.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styeles.css') }}">
     <title>Login</title>
 </head>
 <body>
     <div id="login-container" class="form-container">
-        <img src="/frontend/img/logo.png" alt="icone" class="form-logo">
+        <img src="{{ url_for('static', filename='img/logo.png') }}" alt="icone" class="form-logo">
         <h2 class="form-title">Login</h2>
         <form id="login-form" action="/login" method="post">
           <div class="input-group">
@@ -21,9 +21,9 @@
             <input type="password" id="password" name="password" required>
           </div>
           <button type="submit" class="submit-btn">Entrar</button>
-          <p class="form-link">Não tem conta? <a href="cadastro.html">Cadastre-se</a></p>
+          <p class="form-link">Não tem conta? <a href="{{ url_for('cadastro') }}">Cadastre-se</a></p>
         </form>
       </div>
 </body>
-<script src="../static/js/script.js"></script>
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
 </html>
