@@ -31,7 +31,7 @@ O objetivo deste projeto é criar um Sistema Empresarial de E-commerce completo 
 - Leone Gabriel Mariano
 
 ### Setor 3 – Back-end
-**Função:** Focado na lógica do sistema, gerência de banco de dados com SQLite, e implementação de rotas e APIs para comunicação com o Front-end.
+**Função:** Focado na lógica do sistema, gerência de banco de dados com MySQLConnector, e implementação de rotas e APIs para comunicação com o Front-end.
 
 **Integrantes:**
 - Felipe Oliveira Silva
