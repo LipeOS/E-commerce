@@ -101,3 +101,10 @@ O objetivo deste projeto é criar um Sistema Empresarial de E-commerce completo 
 - Codigos formatados
 - Imagens acrescentadas
 - Funçoes estaticas adicionadas
+
+# Atualização de Desenvolvimento - 28/09/2024
+
+## Setor 3 – Back-end
+- Corrigidos os caminhos para arquivos estáticos (CSS, JS, imagens) no login.html e index.html.
+- Implementada rota para redirecionar ao index.html após login bem-sucedido.
+- Adicionada nova rota '/index' para servir a página principal (index.html).
