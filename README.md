@@ -102,7 +102,7 @@ O objetivo deste projeto é criar um Sistema Empresarial de E-commerce completo 
 - Imagens acrescentadas
 - Funçoes estaticas adicionadas
 
-# Atualização de Desenvolvimento - 28/09/2024
+# Atualização de Desenvolvimento - 29/09/2024
 
 ## Setor 3 – Back-end
 - Corrigidos os caminhos para arquivos estáticos (CSS, JS, imagens) no login.html e index.html.
