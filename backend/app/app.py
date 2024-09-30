@@ -2,8 +2,8 @@ from flask import Flask, render_template, request, jsonify, redirect, url_for
 import mysql.connector
 from mysql.connector import Error
 import os
-from werkzeug.security import generate_password_hash, check_password_hash
 
+# Definindo o caminho correto para as pastas de templates e arquivos estáticos
 app = Flask(
     __name__, 
     template_folder=os.path.join(os.path.dirname(__file__), '../../frontend/templates'), 
@@ -14,10 +14,10 @@ app = Flask(
 def create_connection():
     try:
         connection = mysql.connector.connect(
-            host='localhost',
-            database='banco',
-            user='seu_usuario',
-            password='sua_senha'
+            host='localhost',   # Endereço do servidor MySQL
+            database='nome_do_banco',  # Nome do banco de dados
+            user='seu_usuario',  # Usuário do banco de dados
+            password='sua_senha'  # Senha do banco de dados
         )
         if connection.is_connected():
             print("Conexão com o MySQL estabelecida com sucesso")
@@ -26,42 +26,9 @@ def create_connection():
         print(f"Erro ao conectar ao MySQL: {e}")
         return None
 
-# Rota para o cadastro (GET e POST)
-@app.route('/register', methods=['GET', 'POST'])
-def register():
-    if request.method == 'POST':
-        fullname = request.form['fullname']
-        role = request.form['role']
-        password = request.form['password']
-        confirm_password = request.form['confirm_password']
-
-        # Verificação de senha
-        if password != confirm_password:
-            return jsonify({"status": "error", "message": "As senhas não correspondem!"})
-
-        connection = create_connection()
-        if not connection:
-            return jsonify({"status": "error", "message": "Erro de conexão com o banco de dados"})
-
-        cursor = connection.cursor()
-
-        # Verificação se o usuário já existe
-        cursor.execute("SELECT * FROM usuarios WHERE nome_completo = %s", (fullname,))
-        user_exists = cursor.fetchone()
-        
-        if user_exists:
-            return jsonify({"status": "error", "message": "Usuário já cadastrado!"})
-
-        # Hashing da senha
-        hashed_password = generate_password_hash(password)
-
-        # Inserção do novo usuário
-        insert_query = "INSERT INTO usuarios (nome_completo, tipo_usuario, senha) VALUES (%s, %s, %s)"
-        cursor.execute(insert_query, (fullname, role, hashed_password))
-        connection.commit()
-
-        return jsonify({"status": "success", "message": "Usuário cadastrado com sucesso!"})
-
+# Rota para página de cadastro
+@app.route('/')
+def cadastro():
     return render_template('cadastro.html')
 
 # Rota para página de login (GET)
@@ -75,15 +42,9 @@ def login():
     username = request.form['username']
     password = request.form['password']
 
-    connection = create_connection()
-    if not connection:
-        return jsonify({"status": "error", "message": "Erro de conexão com o banco de dados"})
-
-    cursor = connection.cursor()
-    cursor.execute("SELECT * FROM usuarios WHERE nome_completo = %s", (username,))
-    user = cursor.fetchone()
-
-    if user and check_password_hash(user[3], password):  # user[3] é a senha armazenada no banco
+    # Simulação de autenticação (aqui você pode adicionar lógica para verificar no banco de dados)
+    if username == "admin" and password == "senha123":
+        # Redireciona para a página 'index.html' após login bem-sucedido
         return redirect(url_for('index'))
     else:
         return jsonify({"status": "error", "message": "Credenciais inválidas!"})
@@ -91,7 +52,7 @@ def login():
 # Rota para a página principal (index.html)
 @app.route('/index')
 def index():
-    return render_template('index.html')
+    return render_template('index.html')  # Renderiza a página 'index.html'
 
 if __name__ == '__main__':
     app.run(debug=True)
