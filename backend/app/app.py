@@ -1,8 +1,13 @@
-from flask import Flask, render_template, request, jsonify, redirect, url_for, session
+import os
+from flask import Flask, render_template, request, redirect, url_for, session, send_from_directory, jsonify
+from werkzeug.utils import secure_filename
 import mysql.connector
 from mysql.connector import Error
-import os
 from werkzeug.security import generate_password_hash, check_password_hash
+
+# Configuração do diretório para armazenar uploads
+UPLOAD_FOLDER = os.path.join(os.path.dirname(__file__), '../../frontend/static/uploads')
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
 
 app = Flask(
     __name__, 
@@ -12,6 +17,9 @@ app = Flask(
 
 # Chave secreta para criptografar as sessões
 app.secret_key = 'sua_chave_secreta_aqui'
+
+# Configuração da pasta de upload
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 # Função para conectar ao banco de dados MySQL
 def create_connection():
@@ -28,6 +36,10 @@ def create_connection():
     except Error as e:
         print(f"Erro ao conectar ao MySQL: {e}")
         return None
+
+# Função para verificar se o arquivo tem uma extensão permitida
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 # Rota para página de cadastro
 @app.route('/')
@@ -142,23 +154,42 @@ def admin_dashboard():
 
     return render_template('admin_dashboard.html', produtos=produtos)
 
-# Rota para cadastrar novos produtos
+# Rota para cadastrar novos produtos com upload de imagem
 @app.route('/register_product', methods=['POST'])
 def register_product():
     product_name = request.form['product_name']
     purchase_price = float(request.form['purchase_price'])
     sale_price = float(request.form['sale_price'])
     quantity = int(request.form['quantity'])
+    description = request.form['description']
+    file = request.files['image_file']
+
+    # Verificando se o arquivo é permitido
+    if file and allowed_file(file.filename):
+        filename = secure_filename(file.filename)
+
+        # Verificando e criando o diretório de uploads, caso não exista
+        if not os.path.exists(app.config['UPLOAD_FOLDER']):
+            os.makedirs(app.config['UPLOAD_FOLDER'])
+
+        # Caminho completo do arquivo
+        file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+        file.save(file_path)  # Salvando o arquivo no diretório de uploads
+        
+        # Salvando o caminho da imagem no banco de dados (apenas o nome do arquivo)
+        image_url = f"uploads/{filename}"
+    else:
+        return jsonify({"status": "error", "message": "Arquivo de imagem inválido"})
 
     connection = create_connection()
     cursor = connection.cursor()
 
-    # Inserindo novo produto no banco
+    # Inserindo novo produto no banco com os novos campos (descrição e imagem)
     insert_query = """
-    INSERT INTO produtos (nome_produto, preco_compra, preco_venda, quantidade)
-    VALUES (%s, %s, %s, %s)
+    INSERT INTO produtos (nome_produto, preco_compra, preco_venda, quantidade, descricao, imagem_url)
+    VALUES (%s, %s, %s, %s, %s, %s)
     """
-    cursor.execute(insert_query, (product_name, purchase_price, sale_price, quantity))
+    cursor.execute(insert_query, (product_name, purchase_price, sale_price, quantity, description, image_url))
     connection.commit()
 
     return redirect(url_for('admin_dashboard'))
@@ -176,6 +207,11 @@ def logout():
 @app.route('/login', methods=['GET'])
 def login_page():
     return render_template('login.html')
+
+# Rota para servir arquivos de imagem
+@app.route('/uploads/<filename>')
+def uploaded_file(filename):
+    return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
 
 if __name__ == '__main__':
     app.run(debug=True)

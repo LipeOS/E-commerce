@@ -4,27 +4,44 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Produtos</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/produtos.css') }}">
 </head>
 <body>
-    <h1>Lista de Produtos</h1>
-    <table border="1">
-        <thead>
-            <tr>
-                <th>Nome do Produto</th>
-                <th>Preço de Venda</th>
-                <th>Quantidade</th>
-            </tr>
-        </thead>
-        <tbody>
+    <!-- Header -->
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <a href="/index"><img src="{{ url_for('static', filename='img/logo.png') }}" alt="Logo"></a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="/index">Home</a></li>
+                <li><a href="#produtos">Produtos</a></li>
+                <li><a href="#contato">Contato</a></li>
+                <li><a href="/logout">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Seção de Produtos -->
+    <section id="produtos" class="produto-section">
+        <h1>Nossos Produtos</h1>
+        <div class="produto-container">
             {% for produto in produtos %}
-            <tr>
-                <td>{{ produto['nome_produto'] }}</td>
-                <td>{{ produto['preco_venda'] }}</td>
-                <td>{{ produto['quantidade'] }}</td>
-            </tr>
+            <div class="produto-card">
+                <img src="{{ produto['imagem_url'] }}" alt="{{ produto['nome_produto'] }}">
+                <h2>{{ produto['nome_produto'] }}</h2>
+                <p>{{ produto['descricao'] }}</p>
+                <p><strong>Preço:</strong> R$ {{ produto['preco_venda'] }}</p>
+                <p><strong>Quantidade disponível:</strong> {{ produto['quantidade'] }}</p>
+                <button>Comprar</button>
+            </div>
             {% endfor %}
-        </tbody>
-    </table>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Ecocommerce. Todos os direitos reservados.</p>
+    </footer>
 </body>
 </html>

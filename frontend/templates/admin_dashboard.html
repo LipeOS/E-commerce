@@ -38,7 +38,7 @@
 
         <div class="admin-form">
             <h2>Cadastro de Produtos</h2>
-            <form id="product-form" action="/register_product" method="post">
+            <form id="product-form" action="/register_product" method="post" enctype="multipart/form-data">
                 <div class="input-group">
                     <label for="product-name">Nome do Produto</label>
                     <input type="text" id="product-name" name="product_name" required>
@@ -55,9 +55,19 @@
                     <label for="quantity">Quantidade</label>
                     <input type="number" id="quantity" name="quantity" required>
                 </div>
+                <div class="input-group">
+                    <label for="description">Descrição</label>
+                    <textarea id="description" name="description" required></textarea>
+                </div>
+                <div class="input-group">
+                    <label for="image-file">Upload da Imagem do Produto</label>
+                    <input type="file" id="image-file" name="image_file" accept="image/*" required>
+                </div>
                 <button type="submit" class="submit-btn">Cadastrar Produto</button>
             </form>
         </div>
+        
+        
 
         <div>
             <h2>Extrato de Produtos</h2>
@@ -87,5 +97,6 @@
             </table>
         </div>
     </div>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 </body>
 </html>

@@ -108,3 +108,46 @@ O objetivo deste projeto é criar um Sistema Empresarial de E-commerce completo 
 - Corrigidos os caminhos para arquivos estáticos (CSS, JS, imagens) no login.html e index.html.
 - Implementada rota para redirecionar ao index.html após login bem-sucedido.
 - Adicionada nova rota '/index' para servir a página principal (index.html).
+
+
+# Atualização de Desenvolvimento - 30/09/2024
+
+## Setor 3 – Back-end
+
+### Funcionalidades Adicionadas
+
+1. **Login com Verificação de Credenciais**
+   - Implementada funcionalidade de login com verificação de credenciais no banco de dados.
+   - Utilização de `werkzeug.security` para hash e verificação de senha.
+   - Rota de login verifica o hash da senha armazenada no banco de dados.
+
+2. **Sessão de Usuário**
+   - Implementada sessão de usuário para controle de acesso, diferenciando entre usuários comuns e administradores.
+   - Sessão de usuário implementada para manter o estado de login.
+
+3. **Página de Administração**
+   - Criada página de administração que lista produtos, permitindo o cálculo automático de lucro unitário e total.
+   - Página exclusiva para usuários com perfil de administrador (/admin).
+   - Exibição de produtos cadastrados com cálculo de lucro unitário e total.
+
+4. **Cadastro de Novos Produtos**
+   - Adicionada rota para cadastro de novos produtos, permitindo que administradores insiram produtos diretamente no sistema.
+   - Permite o cadastro de produtos com nome, preço de compra, preço de venda, e quantidade.
+   - Dados são inseridos no banco de dados e exibidos na página de administração.
+
+5. **Funcionalidade de Logout**
+   - Implementada funcionalidade de logout, removendo as sessões ativas do usuário.
+   - Remove informações da sessão do usuário e redireciona para a página de login.
+
+6. **Melhorias nas Mensagens de Erro**
+   - Melhorias nas mensagens de erro para feedback mais claro ao usuário, especialmente em credenciais inválidas e problemas de conexão ao banco.
+
+
+7. **Produto aparecendo para o Usuario**
+   - Agora quando um produto é adicionado pelo admin, ele é automaticamente exposta na pagina do usuario.
+
+### Proteção de Rotas
+
+- Implementada verificação de sessão para proteger páginas restritas (admin e index).
+- Usuário é redirecionado ao login se não estiver autenticado.
+
