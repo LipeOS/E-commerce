@@ -19,7 +19,13 @@
         </div>
         <div class="search-container">
             <input type="text" placeholder="Pesquisar..." class="search-input">
-            <button class="search-btn"><img id="h" src="{{ url_for('static', filename='img/Icone_Lupa.png') }}" alt=""></i></button>
+            <button class="search-btn">
+                <img id="h" src="{{ url_for('static', filename='img/Icone_Lupa.png') }}" alt="">
+            </button>
+            <!-- Ícone do carrinho com redirecionamento -->
+            <a href="">
+                <img id="cart-icon" src="{{ url_for('static', filename='img/cart-icon.png') }}" alt="Carrinho">
+            </a>
         </div>
     </header>
 

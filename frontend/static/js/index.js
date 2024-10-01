@@ -23,3 +23,17 @@ prevButton.addEventListener('click', () => {
 
 // Ajustar o carrossel se a janela mudar de tamanho
 window.addEventListener('resize', updateCarousel);
+
+
+document.getElementById('cart-icon').addEventListener('click', function(event) {
+    // Aqui você pode salvar o estado do carrinho no localStorage
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    
+    // Adiciona lógica para salvar mais itens no carrinho, se necessário
+    // Exemplo: cart.push('Produto novo');
+    localStorage.setItem('cart', JSON.stringify(cart));
+    
+    // O redirecionamento já é tratado pelo link <a>
+    // Se você quiser redirecionar via JS, poderia usar:
+    // window.location.href = "nova-aba/index.html";
+});
