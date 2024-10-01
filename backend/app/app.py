@@ -51,7 +51,7 @@ def cadastro():
 def register():
     if request.method == 'POST':
         fullname = request.form['fullname']
-        role = request.form['role']
+        role = request.form['role']  # Recebe o tipo de usuário (admin ou user)
         password = request.form['password']
         confirm_password = request.form['confirm_password']
 
@@ -85,9 +85,14 @@ def register():
         cursor.close()
         connection.close()
 
-        return redirect(url_for('admin_dashboard'))
+        # Redireciona baseado no tipo de usuário
+        if role == 'admin':
+            return redirect(url_for('admin_dashboard'))  # Redireciona para a página de administração se for admin
+        else:
+            return redirect(url_for('login_page'))  # Redireciona para a página de login se for user
 
     return render_template('cadastro.html')
+
 
 # Rota para processar login (POST)
 @app.route('/login', methods=['POST'])
