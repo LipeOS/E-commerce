@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalhes do Produto</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+    <header class="header">
+        <div class="logo-container">
+            <img id="g" src="{{ url_for('static', filename='img/logo.png') }}" alt="Ecommerce Logo">
+            <h1></h1>
+        </div>
+        <div class="search-container">
+            <input type="text" placeholder="Pesquisar..." class="search-input">
+            <button class="search-btn"><img id="h" src="{{ url_for('static', filename='img/Icone_Lupa.png') }}" alt=""></button>
+        </div>
+    </header>
+
+    <nav class="nav-bar">
+        <a href="#">Alimentos</a>
+        <a href="#">Cosmeticos</a>
+        <a href="#">Bebidas</a>
+        <a href="#">acessorios</a>
+        <a href="#">Tecnologicos</a>
+
+    </nav>
+
+    <main>
+        <section class="product-details">
+            <div class="product-image">
+                <!-- Exibe a imagem do produto -->
+                <img src="{{ url_for('uploaded_file', filename=produto['imagem_url']) }}" alt="{{ produto['nome_produto'] }}">
+
+            </div>
+            <div class="product-info">
+                <h2 class="product-name">{{ produto['nome_produto'] }}</h2>
+                <p class="product-description">{{ produto['descricao'] }}</p>
+                <p class="product-price">R$ {{ produto['preco_venda'] }}</p>
+                <div class="product-actions">
+                    <button class="btn-buy">Comprar</button>
+                    <select class="product-quantity">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                    </select>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="{{ url_for('static', filename='js/index.js') }}"></script>
+</body>
+</html>

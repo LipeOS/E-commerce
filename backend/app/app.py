@@ -41,6 +41,30 @@ def create_connection():
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
+
+
+
+@app.route('/produto/<int:produto_id>')
+def produto_detalhes(produto_id):
+    # Verifica se o usuário está logado
+    if not session.get('logged_in'):
+        return redirect(url_for('login_page'))
+
+    # Conectar ao banco de dados
+    connection = create_connection()
+    cursor = connection.cursor(dictionary=True)
+
+    # Buscar informações do produto específico pelo ID
+    cursor.execute("SELECT * FROM produtos WHERE id = %s", (produto_id,))
+    produto = cursor.fetchone()
+
+    # Verifica se o produto foi encontrado
+    if not produto:
+        return "Produto não encontrado", 404
+
+    # Renderiza a página de detalhes do produto
+    return render_template('detalhespro.html', produto=produto)
+
 # Rota para página de cadastro
 @app.route('/')
 def cadastro():
