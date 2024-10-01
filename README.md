@@ -49,33 +49,34 @@ O objetivo deste projeto é criar um Sistema Empresarial de E-commerce completo 
 
 ## Prévia dos Setores
 
-- **Setor 1 – Design:** 
-- **Setor 2 – Front-end:** 
-- **Setor 3 – Back-end:** 
-- **Setor 4 – Testers / Documentação:** 
+- **Setor 1 – Design:** O design espera a entrega de um projeto semelhante ao que a equipe planejou por meio do Figma.
+- **Setor 2 – Front-end:** O Front-end espera implementar os planos de Design com eficácia, garantindo a máxima fidelidade ao projeto.
+- **Setor 3 – Back-end:** O Back-end visa fornecer as funcionalidades essenciais para este projeto.
+- **Setor 4 – Testers / Documentação:** A Documentação tem como objetivo fornecer um relatório detalhado e claro sobre cada etapa do projeto.
+
 
 ## Atualização de Desenvolvimento - 25/09/2024
 
 ### Setor 1 – Design:
-- Planejamento de como ficará o projeto por meio do Figma
-- Escolha da paleta de cores
-- Início ao desenvolvimento da logo
-- Busca por ícones 
+- Planejamento de como ficará o projeto por meio do Figma.
+- Escolha da paleta de cores.
+- Início ao desenvolvimento da logo.
+- Busca por ícones.
 
 ### Setor 2 - Front-end:
-- Criação da base do projeto
-- Organização das pastas
+- Criação da base do projeto.
+- Organização das pastas.
 
 ### Setor 3 – Back-end:
-- Arquitetura de pastas
-- Criação de arquivos
-- Fluxograma
+- Arquitetura de pastas.
+- Criação de arquivos.
+- Fluxograma.
 
 ### Setor 4 – Testers / Documentação:
 - Introdução
-- Explicação dos setores com seus respectivos integrantes
-- Prévia de cada setor (o que esperam do projeto de acordo com sua função)
-- Atualização de Desenvolvimento (o que foi feito no projeto de acordo com a data)
+- Explicação dos setores com seus respectivos integrantes.
+- Prévia de cada setor (o que esperam do projeto de acordo com sua função).
+- Atualização de Desenvolvimento (o que foi feito no projeto de acordo com a data).
 
 # Atualização de Desenvolvimento - 26/09/2024
 
@@ -92,15 +93,15 @@ O objetivo deste projeto é criar um Sistema Empresarial de E-commerce completo 
 - Criação de fluxograma.
 
 ## Setor 4 – Testers / Documentação
-- Atualização de Desenvolvimento
+- Atualização de Desenvolvimento 26/09/2024.
 
 
 # Atualização de Desenvolvimento - 28/09/2024
 
 ## Setor 2 – Front-end
-- Codigos formatados
-- Imagens acrescentadas
-- Funçoes estaticas adicionadas
+- Códigos formatados.
+- Imagens acrescentadas.
+- Funções estáticas adicionadas.
 
 # Atualização de Desenvolvimento - 29/09/2024
 
@@ -108,6 +109,9 @@ O objetivo deste projeto é criar um Sistema Empresarial de E-commerce completo 
 - Corrigidos os caminhos para arquivos estáticos (CSS, JS, imagens) no login.html e index.html.
 - Implementada rota para redirecionar ao index.html após login bem-sucedido.
 - Adicionada nova rota '/index' para servir a página principal (index.html).
+
+## Setor 4 – Testers / Documentação
+- Atualização de Desenvolvimento 29/09/2024.
 
 
 # Atualização de Desenvolvimento - 30/09/2024
@@ -142,12 +146,28 @@ O objetivo deste projeto é criar um Sistema Empresarial de E-commerce completo 
 6. **Melhorias nas Mensagens de Erro**
    - Melhorias nas mensagens de erro para feedback mais claro ao usuário, especialmente em credenciais inválidas e problemas de conexão ao banco.
 
-
 7. **Produto aparecendo para o Usuario**
    - Agora quando um produto é adicionado pelo admin, ele é automaticamente exposta na pagina do usuario.
 
-### Proteção de Rotas
+8. **Proteção de Rotas**
 
 - Implementada verificação de sessão para proteger páginas restritas (admin e index).
 - Usuário é redirecionado ao login se não estiver autenticado.
+
+## Setor 4 – Testers / Documentação
+- Atualização de Desenvolvimento 30/09/2024.
+
+# Atualização de Desenvolvimento - 01/10/2024
+
+## Setor 2 – Front-end
+- Atualização do home.
+- Inserindo produtos no home.
+
+## Setor 4 – Testers / Documentação
+- Atualização de Desenvolvimento 01/10/2024.
+
+
+
+
+
 
