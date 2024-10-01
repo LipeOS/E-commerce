@@ -160,8 +160,12 @@ O objetivo deste projeto é criar um Sistema Empresarial de E-commerce completo 
 # Atualização de Desenvolvimento - 01/10/2024
 
 ## Setor 2 – Front-end
-- Atualização do home.
-- Inserindo produtos no home.
+- Atualização da página inicial com a inserção de produtos.
+
+## Setor 3 – Backend
+- Implementada a tabela `carrinho` para gerenciar produtos desejados pelos usuários.
+  - Colunas: `id`, `usuario_id`, `produto_id`, `quantidade`, `preco_venda`, `total_preco`, `imagem_url`.
+  - `produto_id` como chave estrangeira referenciando a tabela `produtos`.
 
 ## Setor 4 – Testers / Documentação
 - Atualização de Desenvolvimento 01/10/2024.

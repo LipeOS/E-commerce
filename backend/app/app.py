@@ -41,15 +41,24 @@ def create_connection():
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
+@app.route('/carrinho')
+def carrinho():
+    if not session.get('logged_in'):
+        return redirect(url_for('login_page'))
 
+    connection = create_connection()
+    cursor = connection.cursor(dictionary=True)
+
+    usuario_id = session['username']  # Ajuste se necessário
+    cursor.execute("SELECT * FROM carrinho WHERE usuario_id = %s", (usuario_id,))
+    cart_items = cursor.fetchall()
+
+    return render_template('carrinho.html', cart_items=cart_items)
+    
 
 
 @app.route('/produto/<int:produto_id>')
 def produto_detalhes(produto_id):
-    # Verifica se o usuário está logado
-    if not session.get('logged_in'):
-        return redirect(url_for('login_page'))
-
     # Conectar ao banco de dados
     connection = create_connection()
     cursor = connection.cursor(dictionary=True)
@@ -62,8 +71,9 @@ def produto_detalhes(produto_id):
     if not produto:
         return "Produto não encontrado", 404
 
-    # Renderiza a página de detalhes do produto
     return render_template('detalhespro.html', produto=produto)
+
+
 
 # Rota para página de cadastro
 @app.route('/')

@@ -8,8 +8,10 @@ Para criar o banco de dados, execute o seguinte comando SQL:
 
 ```sql
 
+-- Criação do Banco de Dados
 CREATE DATABASE banco;
 
+-- Selecionando o Banco de Dados
 USE banco;
 
 -- Criação da tabela 'usuarios'
@@ -31,7 +33,20 @@ CREATE TABLE produtos (
   imagem_url VARCHAR(255)                       -- URL da imagem do produto
 );
 
-```sql
+-- Criação da tabela 'carrinho'
+CREATE TABLE carrinho (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    usuario_id BIGINT,  -- Referência ao usuário logado
+    produto_id BIGINT,  -- Referência ao ID do produto
+    quantidade INT,
+    preco_venda DECIMAL(10, 2),
+    total_preco DECIMAL(10, 2),
+    imagem_url TEXT,
+    FOREIGN KEY (usuario_id) REFERENCES usuarios(id),  -- Chave estrangeira referenciando a tabela usuarios
+    FOREIGN KEY (produto_id) REFERENCES produtos(id)   -- Chave estrangeira referenciando a tabela produtos
+);
 
+
+```sql
 
 

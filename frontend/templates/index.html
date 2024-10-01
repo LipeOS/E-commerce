@@ -23,7 +23,7 @@
                 <img id="h" src="{{ url_for('static', filename='img/Icone_Lupa.png') }}" alt="">
             </button>
             <!-- Ícone do carrinho com redirecionamento -->
-            <a href="">
+            <a href="{{ url_for('carrinho') }}">
                 <img id="cart-icon" src="{{ url_for('static', filename='img/cart-icon.png') }}" alt="Carrinho">
             </a>
         </div>
@@ -66,9 +66,11 @@
                 <p><strong>Preço:</strong> R$ {{ produto['preco_venda'] }}</p>
                 <p><strong>Quantidade disponível:</strong> {{ produto['quantidade'] }}</p>
                 <!-- Botão "Comprar" agora redireciona para a página de detalhes do produto -->
-                <a href="{{ url_for('produto_detalhes', produto_id=produto['id']) }}">
-                    <button>Comprar</button>
+                <a href="{{ url_for('carrinho') }}">
+                    <img id="cart-icon" src="{{ url_for('static', filename='img/cart-icon.png') }}" alt="Carrinho">
                 </a>
+                
+                
             </div>
             {% endfor %}
         </div>
