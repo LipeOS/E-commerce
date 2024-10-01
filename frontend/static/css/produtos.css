@@ -19,11 +19,17 @@
 }
 
 body {
-  background: linear-gradient(to right, var(--background-color), #A5D6A7);
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+    font-family: 'Arial', sans-serif;
+    background-color: #fff;
+    color: #333;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    background-color: #cfe5d0;
 }
 
 /* Navbar */
@@ -72,8 +78,8 @@ body {
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     width: 300px;
-    margin: 20px;
-    padding: 20px;
+    margin: 6px;
+    padding: 10px;
     text-align: center;
     transition: transform 0.3s;
 }

@@ -1,34 +1,25 @@
-let slides = document.querySelectorAll('.slide');
-let currentSlide = 0;
-const nextButton = document.querySelector('.next');
+const carouselContainer = document.querySelector('.carousel-container');
+const slides = document.querySelectorAll('.carousel-slide');
 const prevButton = document.querySelector('.prev');
+const nextButton = document.querySelector('.next');
 
-// Função para mostrar o slide atual
-function showSlide(index) {
-    slides.forEach(slide => slide.classList.remove('active'));
-    slides[index].classList.add('active');
+let currentIndex = 0;
+const totalSlides = slides.length;
+
+function updateCarousel() {
+    const slideWidth = slides[0].clientWidth;
+    carouselContainer.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
 }
 
-// Função para avançar o slide automaticamente a cada 5 segundos
-function autoSlide() {
-    currentSlide = (currentSlide + 1) % slides.length;
-    showSlide(currentSlide);
-}
-
-// Avançar manualmente
 nextButton.addEventListener('click', () => {
-    currentSlide = (currentSlide + 1) % slides.length;
-    showSlide(currentSlide);
+    currentIndex = (currentIndex + 1) % totalSlides;
+    updateCarousel();
 });
 
-// Retroceder manualmente
 prevButton.addEventListener('click', () => {
-    currentSlide = (currentSlide - 1 + slides.length) % slides.length;
-    showSlide(currentSlide);
+    currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
+    updateCarousel();
 });
 
-// Iniciar com o primeiro slide
-showSlide(currentSlide);
-
-// Intervalo de 5 segundos para mudar o slide automaticamente
-setInterval(autoSlide, 4000); // 5000 ms = 5 segundos
+// Ajustar o carrossel se a janela mudar de tamanho
+window.addEventListener('resize', updateCarousel);
