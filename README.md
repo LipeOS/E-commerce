@@ -162,13 +162,33 @@ O objetivo deste projeto é criar um Sistema Empresarial de E-commerce completo 
 ## Setor 2 – Front-end
 - Atualização da página inicial com a inserção de produtos.
 
-## Setor 3 – Backend
-- Implementada a tabela `carrinho` para gerenciar produtos desejados pelos usuários.
-  - Colunas: `id`, `usuario_id`, `produto_id`, `quantidade`, `preco_venda`, `total_preco`, `imagem_url`.
-  - `produto_id` como chave estrangeira referenciando a tabela `produtos`.
+# Atualização de Desenvolvimento - 01/10/2024
 
-## Setor 4 – Testers / Documentação
+## Setor 2 - Front-end
+- Atualização da página inicial.
+- Inserção de produtos na página inicial.
+
+## Setor 3 – Banco de Dados
+- Criação da tabela `carrinho`.
+- Implementação da tabela `carrinho` para gerenciar produtos desejados pelos usuários. 
+
+**A tabela inclui as seguintes colunas:**
+
+ - `id`: Identificador único do item no carrinho.
+ - `usuario_id`: Referência ao usuário logado.
+ - `produto_id`: Referência ao ID do produto.
+ - `quantidade`: Quantidade do produto no carrinho.
+ - `preco_venda`: Preço de venda do produto.
+ - `total_preco`: Preço total da quantidade de produtos.
+ - `imagem_url`: URL da imagem do produto.
+ - A coluna `produto_id` possui uma chave estrangeira que referencia a tabela `produtos`, garantindo a integridade referencial.
+
+## Setor 4 - Testers / Documentação
 - Atualização de Desenvolvimento 01/10/2024.
+
+
+
+
 
 
 
