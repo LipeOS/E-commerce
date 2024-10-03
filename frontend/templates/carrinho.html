@@ -8,11 +8,32 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
 </head>
 <body>
+
+    <!-- Cabeçalho com logo e barra de pesquisa -->
     <header class="header">
-        <h1>Detalhes do Carrinho</h1>
+        <div class="logo-container">
+            <img id="g" src="{{ url_for('static', filename='img/logo.png') }}" alt="Logo" class="logo">
+            <h1>Carrinho de Compras</h1>
+        </div>
+        <div class="icons-container">
+            <!-- Adicionando ícone de casa que redireciona para o index -->
+            <a href="{{ url_for('index') }}">
+                <i class="fas fa-home" id="home-icon"></i>
+            </a>
+        </div>
     </header>
 
+    <!-- Barra de navegação -->
+    <nav class="nav-bar">
+        <a href="#">Alimentos</a>
+        <a href="#">Cosméticos</a>
+        <a href="#">Bebidas</a>
+        <a href="#">Acessórios</a>
+        <a href="#">Tecnológicos</a>
+    </nav>
+
     <main>
+        <!-- Detalhes do carrinho -->
         <section class="cart-details">
             <h2>Itens no Carrinho</h2>
             
@@ -21,7 +42,6 @@
                     {% for item in cart_items %}
                     <li class="cart-item">
                         <div class="item-details">
-                            <input type="checkbox" class="select-item" data-item-id="{{ item.id }}">
                             <img src="{{ url_for('static', filename=item.imagem_url) }}" alt="{{ item.nome_produto }}">
                             <div class="item-info">
                                 <h3>{{ item.nome_produto }}</h3>
