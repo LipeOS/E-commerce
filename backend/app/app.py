@@ -233,6 +233,8 @@ def register_product():
 
     return redirect(url_for('admin_dashboard'))
 
+
+
 # Rota para logout
 @app.route('/logout')
 def logout():
@@ -251,6 +253,37 @@ def login_page():
 @app.route('/uploads/<filename>')
 def uploaded_file(filename):
     return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
+
+@app.route('/adicionar_ao_carrinho/<int:produto_id>', methods=['POST'])
+def adicionar_ao_carrinho(produto_id):
+    if not session.get('logged_in'):
+        return jsonify({"status": "error", "message": "Usuário não logado!"})
+
+    usuario_id = session['username']  # Ajuste se necessário
+
+    connection = create_connection()
+    cursor = connection.cursor()
+
+    # Verifique se o produto já está no carrinho
+    cursor.execute("SELECT * FROM carrinho WHERE usuario_id = %s AND produto_id = %s", (usuario_id, produto_id))
+    item_existente = cursor.fetchone()
+
+    if item_existente:
+        # Se já existe, atualiza a quantidade
+        nova_quantidade = item_existente['quantidade'] + 1
+        cursor.execute("UPDATE carrinho SET quantidade = %s WHERE usuario_id = %s AND produto_id = %s",
+                       (nova_quantidade, usuario_id, produto_id))
+    else:
+        # Se não existe, adiciona ao carrinho
+        cursor.execute("INSERT INTO carrinho (usuario_id, produto_id, quantidade) VALUES (%s, %s, %s)",
+                       (usuario_id, produto_id, 1))
+
+    connection.commit()
+    cursor.close()
+    connection.close()
+
+    return jsonify({"status": "success", "message": "Produto adicionado ao carrinho!"})
+
 
 if __name__ == '__main__':
     app.run(debug=True)

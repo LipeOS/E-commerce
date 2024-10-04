@@ -1,40 +1,31 @@
 document.addEventListener("DOMContentLoaded", function() {
-    const selectItems = document.querySelectorAll('.select-item');
-    const totalPriceElement = document.getElementById('total-price');
+    const buyButtons = document.querySelectorAll('.btn-buy');
 
-    // Função para calcular o total com base nos itens selecionados
-    function calculateTotal() {
-        let total = 0.0;
-
-        selectItems.forEach(item => {
-            if (item.checked) {
-                const itemId = item.getAttribute('data-item-id');
-                const priceElement = document.querySelector(`.cart-item[data-item-id="${itemId}"] .item-price p`);
-                const price = parseFloat(priceElement.innerText.replace('R$', '').trim());
-                total += price;
-            }
+    buyButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const produtoId = this.getAttribute('data-produto-id');
+            addToCart(produtoId);
         });
+    });
 
-        totalPriceElement.innerText = total.toFixed(2);
+    function addToCart(produtoId) {
+        fetch(`/adicionar_ao_carrinho/${produtoId}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ id: produtoId })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'success') {
+                alert('Produto adicionado ao carrinho!');
+            } else {
+                alert('Erro ao adicionar produto: ' + data.message);
+            }
+        })
+        .catch(error => {
+            console.error('Erro:', error);
+        });
     }
-
-    // Adicionar evento de click em cada checkbox para recalcular o total
-    selectItems.forEach(item => {
-        item.addEventListener('change', calculateTotal);
-    });
-
-    // Função para finalizar a compra com os itens selecionados
-    const checkoutBtn = document.querySelector('.checkout-btn');
-    checkoutBtn.addEventListener('click', function() {
-        const selectedItems = Array.from(selectItems)
-            .filter(item => item.checked)
-            .map(item => item.getAttribute('data-item-id'));
-
-        if (selectedItems.length > 0) {
-            // Envia os itens selecionados para o servidor (implementação do back-end necessária)
-            alert(`Itens selecionados para compra: ${selectedItems.join(', ')}`);
-        } else {
-            alert("Nenhum item selecionado.");
-        }
-    });
 });
