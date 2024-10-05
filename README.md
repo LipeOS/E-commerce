@@ -187,6 +187,32 @@ O objetivo deste projeto é criar um Sistema Empresarial de E-commerce completo 
 - Atualização de Desenvolvimento 01/10/2024.
 
 
+# Atualização de Desenvolvimento - 05/10/2024
+
+## Setor 2 – Front-end
+
+### Funcionalidades Adicionadas
+
+1. **Adição do Footer na Página Inicial**
+   - Implementado um novo footer para o site, com links organizados para páginas úteis, links auxiliares e redes sociais centralizadas.
+   - O footer é responsivo e otimizado para dispositivos móveis, com uma altura considerável e cores harmonizadas com o tema vegano do site.
+   - Links úteis como "Sobre Nós", "Contato", e "Política de Privacidade" foram adicionados, juntamente com links auxiliares como "Suporte" e "Perguntas Frequentes".
+
+2. **Melhoria na Integração do Carrinho**
+   - Ajustes feitos na integração da funcionalidade "Adicionar ao Carrinho", garantindo que o redirecionamento para a página do carrinho funcione corretamente após o usuário clicar em "Comprar".
+   - O backend foi modificado para garantir que os produtos adicionados sejam exibidos corretamente na página do carrinho, com detalhes como nome do produto, quantidade e preço total.
+
+## Setor 3 – Back-end
+
+### Funcionalidades Adicionadas
+
+1. **Correção na Rota do Carrinho**
+   - A rota `/carrinho` foi ajustada para fazer uma consulta ao banco de dados que retorna informações detalhadas sobre os produtos, como nome, imagem, quantidade e preço total de cada item.
+   - O sistema agora calcula automaticamente o total da compra com base nos itens adicionados ao carrinho pelo usuário.
+
+## Setor 4 – Testers / Documentação
+
+- Atualização de Desenvolvimento 05/10/2024.
 
 
 

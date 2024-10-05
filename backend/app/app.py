@@ -49,12 +49,28 @@ def carrinho():
     connection = create_connection()
     cursor = connection.cursor(dictionary=True)
 
-    usuario_id = session['username']  # Ajuste se necessário
-    cursor.execute("SELECT * FROM carrinho WHERE usuario_id = %s", (usuario_id,))
+    # Obtém o ID do usuário logado
+    usuario_id = session['username']
+
+    # Consulta para buscar os itens do carrinho com detalhes do produto
+    query = """
+    SELECT p.id AS produto_id, p.nome_produto, p.imagem_url, p.preco_venda, c.quantidade, 
+           (p.preco_venda * c.quantidade) AS total_preco
+    FROM carrinho c
+    JOIN produtos p ON c.produto_id = p.id
+    WHERE c.usuario_id = %s
+    """
+    cursor.execute(query, (usuario_id,))
     cart_items = cursor.fetchall()
 
-    return render_template('carrinho.html', cart_items=cart_items)
-    
+    # Calcula o preço total do carrinho
+    total_price = sum(item['total_preco'] for item in cart_items)
+
+    cursor.close()
+    connection.close()
+
+    return render_template('carrinho.html', cart_items=cart_items, total_price=total_price)
+
 
 
 @app.route('/produto/<int:produto_id>')
@@ -262,7 +278,7 @@ def adicionar_ao_carrinho(produto_id):
     usuario_id = session['username']  # Ajuste se necessário
 
     connection = create_connection()
-    cursor = connection.cursor()
+    cursor = connection.cursor(dictionary=True)
 
     # Verifique se o produto já está no carrinho
     cursor.execute("SELECT * FROM carrinho WHERE usuario_id = %s AND produto_id = %s", (usuario_id, produto_id))
@@ -283,6 +299,7 @@ def adicionar_ao_carrinho(produto_id):
     connection.close()
 
     return jsonify({"status": "success", "message": "Produto adicionado ao carrinho!"})
+
 
 
 if __name__ == '__main__':

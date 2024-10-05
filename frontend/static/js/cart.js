@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function() {
-    const buyButtons = document.querySelectorAll('.btn-buy');
+    const buyButtons = document.querySelectorAll('.btn-comprar');
 
     buyButtons.forEach(button => {
         button.addEventListener('click', function() {
@@ -19,7 +19,8 @@ document.addEventListener("DOMContentLoaded", function() {
         .then(response => response.json())
         .then(data => {
             if (data.status === 'success') {
-                alert('Produto adicionado ao carrinho!');
+                // Redireciona para a página do carrinho após adicionar o produto
+                window.location.href = "/carrinho";
             } else {
                 alert('Erro ao adicionar produto: ' + data.message);
             }

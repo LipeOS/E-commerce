@@ -16,7 +16,6 @@
             <h1>Carrinho de Compras</h1>
         </div>
         <div class="icons-container">
-            <!-- Adicionando ícone de casa que redireciona para o index -->
             <a href="{{ url_for('index') }}">
                 <i class="fas fa-home" id="home-icon"></i>
             </a>
@@ -50,7 +49,7 @@
                             </div>
                         </div>
                         <div class="item-price">
-                            <p>R$ {{ item.total_preco }}</p>
+                            <p>Total: R$ {{ item.total_preco }}</p>
                         </div>
                     </li>
                     {% endfor %}
@@ -58,7 +57,7 @@
 
                 <div class="cart-summary">
                     <h3>Resumo da Compra</h3>
-                    <p><strong>Total:</strong> R$ <span id="total-price">0.00</span></p>
+                    <p><strong>Total:</strong> R$ <span id="total-price">{{ total_price }}</span></p>
                     <button type="button" class="checkout-btn">Finalizar Compra</button>
                 </div>
             </form>

@@ -23,3 +23,8 @@ document.getElementById('cart-icon').addEventListener('click', function(event) {
     // Adicione lógica para salvar mais itens no carrinho, se necessário
     localStorage.setItem('cart', JSON.stringify(cart));
 });
+
+document.getElementById('cart-icon').addEventListener('click', function(event) {
+    // Redireciona para a página do carrinho
+    window.location.href = "/carrinho";
+});
