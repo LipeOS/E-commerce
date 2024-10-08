@@ -41,62 +41,15 @@ def create_connection():
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
-@app.route('/carrinho')
-def carrinho():
-    if not session.get('logged_in'):
-        return redirect(url_for('login_page'))
 
-    connection = create_connection()
-    cursor = connection.cursor(dictionary=True)
+# ROTAS RELACIONADAS AO CADASTRO E LOGIN
 
-    # Obtém o ID do usuário logado
-    usuario_id = session['username']
-
-    # Consulta para buscar os itens do carrinho com detalhes do produto
-    query = """
-    SELECT p.id AS produto_id, p.nome_produto, p.imagem_url, p.preco_venda, c.quantidade, 
-           (p.preco_venda * c.quantidade) AS total_preco
-    FROM carrinho c
-    JOIN produtos p ON c.produto_id = p.id
-    WHERE c.usuario_id = %s
-    """
-    cursor.execute(query, (usuario_id,))
-    cart_items = cursor.fetchall()
-
-    # Calcula o preço total do carrinho
-    total_price = sum(item['total_preco'] for item in cart_items)
-
-    cursor.close()
-    connection.close()
-
-    return render_template('carrinho.html', cart_items=cart_items, total_price=total_price)
-
-
-
-@app.route('/produto/<int:produto_id>')
-def produto_detalhes(produto_id):
-    # Conectar ao banco de dados
-    connection = create_connection()
-    cursor = connection.cursor(dictionary=True)
-
-    # Buscar informações do produto específico pelo ID
-    cursor.execute("SELECT * FROM produtos WHERE id = %s", (produto_id,))
-    produto = cursor.fetchone()
-
-    # Verifica se o produto foi encontrado
-    if not produto:
-        return "Produto não encontrado", 404
-
-    return render_template('detalhespro.html', produto=produto)
-
-
-
-# Rota para página de cadastro
+# Rota para página de cadastro (GET)
 @app.route('/')
 def cadastro():
     return render_template('cadastro.html')
 
-# Rota para página de cadastro (GET) e processamento do cadastro (POST)
+# Rota para processar cadastro (GET e POST)
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
@@ -109,7 +62,6 @@ def register():
         if password != confirm_password:
             return jsonify({"status": "error", "message": "As senhas não correspondem!"})
 
-        # Criação de conexão com o banco
         connection = create_connection()
         if not connection:
             return jsonify({"status": "error", "message": "Erro de conexão com o banco de dados"})
@@ -119,7 +71,7 @@ def register():
         # Verifica se o usuário já existe
         cursor.execute("SELECT * FROM usuarios WHERE nome_completo = %s", (fullname,))
         user_exists = cursor.fetchone()
-        
+
         if user_exists:
             return jsonify({"status": "error", "message": "Usuário já cadastrado!"})
 
@@ -131,15 +83,14 @@ def register():
         cursor.execute(insert_query, (fullname, role, hashed_password))
         connection.commit()
 
-        # Fecha a conexão
         cursor.close()
         connection.close()
 
         # Redireciona baseado no tipo de usuário
         if role == 'admin':
-            return redirect(url_for('admin_dashboard'))  # Redireciona para a página de administração se for admin
+            return redirect(url_for('admin_dashboard'))
         else:
-            return redirect(url_for('login_page'))  # Redireciona para a página de login se for user
+            return redirect(url_for('login_page'))
 
     return render_template('cadastro.html')
 
@@ -159,7 +110,6 @@ def login():
     user = cursor.fetchone()
 
     if user and check_password_hash(user[3], password):  # user[3] é a senha armazenada no banco
-        # Criação da sessão para o usuário logado
         session['logged_in'] = True
         session['username'] = username
         session['role'] = user[2]  # user[2] é o tipo de usuário (user/admin)
@@ -172,37 +122,120 @@ def login():
     else:
         return jsonify({"status": "error", "message": "Credenciais inválidas!"})
 
+
+# Rota para página de login (GET)
+@app.route('/login', methods=['GET'])
+def login_page():
+    return render_template('login.html')
+
+
+# Rota para logout
+@app.route('/logout')
+def logout():
+    session.pop('logged_in', None)
+    session.pop('username', None)
+    session.pop('role', None)
+    return redirect(url_for('login_page'))
+
+
+# ROTAS RELACIONADAS AO SITE PRINCIPAL
+
 # Rota para a página principal (index.html) com lista de produtos
 @app.route('/index')
 def index():
-    # Verificação se o usuário está logado
     if not session.get('logged_in'):
-        return redirect(url_for('login_page'))  # Redireciona para a página de login se não estiver logado
+        return redirect(url_for('login_page'))
 
     connection = create_connection()
     cursor = connection.cursor(dictionary=True)
-
-    # Buscando todos os produtos para exibir na página principal
     cursor.execute("SELECT * FROM produtos")
     produtos = cursor.fetchall()
 
     return render_template('index.html', produtos=produtos)
 
-# Rota para a página de administração
-@app.route('/admin')
-def admin_dashboard():
-    # Verificação se o usuário é um admin
-    if not session.get('logged_in') or session.get('role') != 'admin':
-        return redirect(url_for('login_page'))  # Redireciona se não for admin ou não estiver logado
+# Rota para exibir os detalhes de um produto específico
+@app.route('/produto/<int:produto_id>')
+def produto_detalhes(produto_id):
+    connection = create_connection()
+    cursor = connection.cursor(dictionary=True)
+    cursor.execute("SELECT * FROM produtos WHERE id = %s", (produto_id,))
+    produto = cursor.fetchone()
+
+    if not produto:
+        return "Produto não encontrado", 404
+
+    return render_template('detalhespro.html', produto=produto)
+
+
+# ROTAS RELACIONADAS AO CARRINHO
+
+# Rota para adicionar produto ao carrinho
+@app.route('/adicionar_ao_carrinho/<int:produto_id>', methods=['POST'])
+def adicionar_ao_carrinho(produto_id):
+    if not session.get('logged_in'):
+        return jsonify({"status": "error", "message": "Usuário não logado!"})
+
+    usuario_id = session['username']
 
     connection = create_connection()
     cursor = connection.cursor(dictionary=True)
+    cursor.execute("SELECT * FROM carrinho WHERE usuario_id = %s AND produto_id = %s", (usuario_id, produto_id))
+    item_existente = cursor.fetchone()
 
-    # Buscando todos os produtos para exibir na aba de administração
+    if item_existente:
+        nova_quantidade = item_existente['quantidade'] + 1
+        cursor.execute("UPDATE carrinho SET quantidade = %s WHERE usuario_id = %s AND produto_id = %s",
+                       (nova_quantidade, usuario_id, produto_id))
+    else:
+        cursor.execute("INSERT INTO carrinho (usuario_id, produto_id, quantidade) VALUES (%s, %s, %s)",
+                       (usuario_id, produto_id, 1))
+
+    connection.commit()
+    cursor.close()
+    connection.close()
+
+    return jsonify({"status": "success", "message": "Produto adicionado ao carrinho!"})
+
+
+# Rota para visualizar o carrinho
+@app.route('/carrinho')
+def carrinho():
+    if not session.get('logged_in'):
+        return redirect(url_for('login_page'))
+
+    connection = create_connection()
+    cursor = connection.cursor(dictionary=True)
+    usuario_id = session['username']
+    query = """
+    SELECT p.id AS produto_id, p.nome_produto, p.imagem_url, p.preco_venda, c.quantidade, 
+           (p.preco_venda * c.quantidade) AS total_preco
+    FROM carrinho c
+    JOIN produtos p ON c.produto_id = p.id
+    WHERE c.usuario_id = %s
+    """
+    cursor.execute(query, (usuario_id,))
+    cart_items = cursor.fetchall()
+    total_price = sum(item['total_preco'] for item in cart_items)
+
+    cursor.close()
+    connection.close()
+
+    return render_template('carrinho.html', cart_items=cart_items, total_price=total_price)
+
+
+# ROTAS RELACIONADAS AO ADMINISTRADOR
+
+# Rota para a página de administração
+@app.route('/admin')
+def admin_dashboard():
+    if not session.get('logged_in') or session.get('role') != 'admin':
+        return redirect(url_for('login_page'))
+
+    connection = create_connection()
+    cursor = connection.cursor(dictionary=True)
     cursor.execute("SELECT * FROM produtos")
     produtos = cursor.fetchall()
 
-    # Calculando o lucro de cada produto
     for produto in produtos:
         produto['lucro_unitario'] = produto['preco_venda'] - produto['preco_compra']
         produto['lucro_total'] = produto['lucro_unitario'] * produto['quantidade']
@@ -219,88 +252,45 @@ def register_product():
     description = request.form['description']
     file = request.files['image_file']
 
-    # Verificando se o arquivo é permitido
     if file and allowed_file(file.filename):
         filename = secure_filename(file.filename)
-
-        # Verificando e criando o diretório de uploads, caso não exista
         if not os.path.exists(app.config['UPLOAD_FOLDER']):
             os.makedirs(app.config['UPLOAD_FOLDER'])
 
-        # Caminho completo do arquivo
         file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-        file.save(file_path)  # Salvando o arquivo no diretório de uploads
-        
-        # Salvando o caminho da imagem no banco de dados (apenas o nome do arquivo)
-        image_url = f"uploads/{filename}"
+        file.save(file_path)
+
+        connection = create_connection()
+        cursor = connection.cursor()
+        insert_query = """
+        INSERT INTO produtos (nome_produto, preco_compra, preco_venda, quantidade, descricao, imagem_url)
+        VALUES (%s, %s, %s, %s, %s, %s)
+        """
+        cursor.execute(insert_query, (product_name, purchase_price, sale_price, quantity, description, file_path))
+        connection.commit()
+
+        cursor.close()
+        connection.close()
+
+        return jsonify({"status": "success", "message": "Produto registrado com sucesso!"})
     else:
-        return jsonify({"status": "error", "message": "Arquivo de imagem inválido"})
-
-    connection = create_connection()
-    cursor = connection.cursor()
-
-    # Inserindo novo produto no banco com os novos campos (descrição e imagem)
-    insert_query = """
-    INSERT INTO produtos (nome_produto, preco_compra, preco_venda, quantidade, descricao, imagem_url)
-    VALUES (%s, %s, %s, %s, %s, %s)
-    """
-    cursor.execute(insert_query, (product_name, purchase_price, sale_price, quantity, description, image_url))
-    connection.commit()
-
-    return redirect(url_for('admin_dashboard'))
+        return jsonify({"status": "error", "message": "Arquivo de imagem inválido!"})
 
 
+# ROTAS RELACIONADAS AO EXTRATO DE VENDAS
 
-# Rota para logout
-@app.route('/logout')
-def logout():
-    # Remove as informações da sessão
-    session.pop('logged_in', None)
-    session.pop('username', None)
-    session.pop('role', None)
-    return redirect(url_for('login_page'))  # Redireciona para a página de login
-
-# Rota para página de login (GET)
-@app.route('/login', methods=['GET'])
-def login_page():
-    return render_template('login.html')
-
-# Rota para servir arquivos de imagem
-@app.route('/uploads/<filename>')
-def uploaded_file(filename):
-    return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
-
-@app.route('/adicionar_ao_carrinho/<int:produto_id>', methods=['POST'])
-def adicionar_ao_carrinho(produto_id):
-    if not session.get('logged_in'):
-        return jsonify({"status": "error", "message": "Usuário não logado!"})
-
-    usuario_id = session['username']  # Ajuste se necessário
+# Rota para exibir extrato de vendas com produtos agrupados por dia
+@app.route('/extrato_vendas')
+def extrato_vendas():
+    if not session.get('logged_in') or session.get('role') != 'admin':
+        return redirect(url_for('login_page'))
 
     connection = create_connection()
     cursor = connection.cursor(dictionary=True)
+    cursor.execute("SELECT * FROM vendas ORDER BY data_venda DESC")
+    vendas = cursor.fetchall()
 
-    # Verifique se o produto já está no carrinho
-    cursor.execute("SELECT * FROM carrinho WHERE usuario_id = %s AND produto_id = %s", (usuario_id, produto_id))
-    item_existente = cursor.fetchone()
-
-    if item_existente:
-        # Se já existe, atualiza a quantidade
-        nova_quantidade = item_existente['quantidade'] + 1
-        cursor.execute("UPDATE carrinho SET quantidade = %s WHERE usuario_id = %s AND produto_id = %s",
-                       (nova_quantidade, usuario_id, produto_id))
-    else:
-        # Se não existe, adiciona ao carrinho
-        cursor.execute("INSERT INTO carrinho (usuario_id, produto_id, quantidade) VALUES (%s, %s, %s)",
-                       (usuario_id, produto_id, 1))
-
-    connection.commit()
-    cursor.close()
-    connection.close()
-
-    return jsonify({"status": "success", "message": "Produto adicionado ao carrinho!"})
-
-
+    return render_template('extrato_vendas.html', vendas=vendas)
 
 if __name__ == '__main__':
     app.run(debug=True)
