@@ -211,8 +211,24 @@ O objetivo deste projeto é criar um Sistema Empresarial de E-commerce completo 
    - O sistema agora calcula automaticamente o total da compra com base nos itens adicionados ao carrinho pelo usuário.
 
 ## Setor 4 – Testers / Documentação
-
 - Atualização de Desenvolvimento 05/10/2024.
+
+# Atualização de Desenvolvimento - 17/10/2024
+
+## Setor 2 – Front-end
+- Aba de detalhes do produto.
+- Filtro dos produtos.
+
+## Setor 3 – Back-end
+- Aprimoramento do carrinho.
+
+## Setor 4 – Testers / Documentação
+- Atualização de Desenvolvimento 17/10/2024.
+
+
+
+
+
 
 
 
